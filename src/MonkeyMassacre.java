@@ -1,18 +1,18 @@
 import javax.swing.JFrame;
 
-public class ProjectilePvP {
+public class MonkeyMassacre {
 	JFrame frame = new JFrame();
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 500;
 	GamePanel gp;
 
-	public ProjectilePvP() {
+	public MonkeyMassacre() {
 		gp = new GamePanel();
 		frame.addKeyListener(gp);
 	}
 
 	public static void main(String[] args) {
-		ProjectilePvP p = new ProjectilePvP();
+		MonkeyMassacre p = new MonkeyMassacre();
 		p.setup();
 	}
 
