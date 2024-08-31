@@ -1,3 +1,5 @@
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 
 public class MonkeyMassacre {
@@ -18,8 +20,9 @@ public class MonkeyMassacre {
 
 	void setup() {
 		frame.add(gp);
-		frame.setSize(WIDTH, HEIGHT);
+		gp.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
 	}
 }

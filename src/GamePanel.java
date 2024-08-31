@@ -7,14 +7,23 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int MENU = 0;
 	final int GAME = 1;
 	final int END = 2;
 	int currentState = MENU;
+	Monkey bmonk = new Monkey(0, 225, 50 ,50, 1, Color.blue);
+	Monkey rmonk = new Monkey(750, 225, 50, 50, -1, Color.red);
+	ObjectManager obj = new ObjectManager(bmonk, rmonk);
 	Font baseFont = new Font("Arial", Font.PLAIN, 24);
 	Font titleFont = new Font("Arial", Font.PLAIN, 48);
+	Timer frameDraw;
+	public GamePanel() {
+		frameDraw = new Timer(1000 / 60, this);
+		frameDraw.start();
+	}
 
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.black);
@@ -30,12 +39,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawGameState(Graphics g) {
 		g.setColor(Color.white);
 		g.fillRect(0, 0, MonkeyMassacre.WIDTH, MonkeyMassacre.HEIGHT);
+		obj.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, MonkeyMassacre.WIDTH, MonkeyMassacre.HEIGHT);
-	}
+		g.setFont(titleFont);	
+		g.setColor(Color.white);
+		g.drawString("  GAME OVER", 0, 100);
+		g.setFont(baseFont);
+		g.drawString("  Winner: "+"Monkey Won the Game!", 0, 300);
+		g.drawString(" -- Press ENTER to go to Home Screen", 0, 400);
+		}
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -58,7 +74,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState++;
 			}
 		}
-		repaint();// DELETE ME!
+		if(e.getKeyCode() == KeyEvent.VK_Z) {
+			obj.addProjectile(bmonk.getProjectile());
+		}
+		if(e.getKeyCode() == KeyEvent.VK_M) {
+			obj.addProjectile(rmonk.getProjectile());
+		}
+		repaint();
 	}
 
 	@Override
