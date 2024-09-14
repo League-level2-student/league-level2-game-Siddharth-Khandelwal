@@ -21,8 +21,8 @@ public class MonkeyMassacre {
 	void setup() {
 		frame.add(gp);
 		gp.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
+		frame.setVisible(true);
 	}
 }

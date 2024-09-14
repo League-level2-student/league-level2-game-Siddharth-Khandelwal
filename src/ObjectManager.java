@@ -18,11 +18,22 @@ void addProjectile(Projectile p) {
 void draw(Graphics g) {
 	b.draw(g);
 	r.draw(g);
+	for(Projectile p : projectiles) {
+		p.draw(g);
+	}
 }
 @Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
+public void update() {
+	// TODO Auto-generated method stub
+	b.update();
+	r.update();
+	for(Projectile p : projectiles) {
+		p.update();
+	}
+}
 
 }

@@ -2,7 +2,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Monkey extends GameObject{
-Color c;
+boolean up = false;
+boolean down = false;
+boolean right = false;
+boolean left = false;
+	Color c;
 	int whichmonkey;
 	public Monkey(int x, int y, int width, int height, int whichmonkey, Color c) {
 		super(x, y, width, height);
@@ -22,4 +26,19 @@ Color c;
 		g.setColor(c);
 		g.fillRect(x, y, width, height);
 	}
+
+public void update() {
+	if (up && y > 0) {
+		y -= speed;
+	}
+	if (down && y < 500 - 50) {
+		y += speed;
+	}
+	if (left && x > 0) {
+		x -= speed;
+	}
+	if (right && x < 800 - 50) {
+		x += speed;
+	}
+}
 }
