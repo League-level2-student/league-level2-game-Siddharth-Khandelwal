@@ -15,8 +15,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME = 1;
 	final int END = 2;
 	int currentState = MENU;
-	Monkey bmonk = new Monkey(0, 225, 50, 50, 1, Color.blue);
-	Monkey rmonk = new Monkey(750, 225, 50, 50, -1, Color.red);
+	Monkey bmonk = new Monkey(0, 225, 50, 50, 1, Color.blue, 1);
+	Monkey rmonk = new Monkey(750, 225, 50, 50, 2, Color.red, 3);
 	ObjectManager obj = new ObjectManager(bmonk, rmonk);
 	Font baseFont = new Font("Arial", Font.PLAIN, 24);
 	Font titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawGameState(Graphics g) {
-		g.setColor(Color.white);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, MonkeyMassacre.WIDTH, MonkeyMassacre.HEIGHT);
 		obj.draw(g);
 	}
@@ -119,27 +119,35 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (e.getKeyCode() == KeyEvent.VK_W) {
 			bmonk.up = true;
+			bmonk.facing = 0;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_A) {
 			bmonk.left = true;
+			bmonk.facing = 3;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_S) {
 			bmonk.down = true;
+			bmonk.facing = 2;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_D) {
 			bmonk.right = true;
+			bmonk.facing = 1;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_I) {
 			rmonk.up = true;
+			rmonk.facing = 0;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_J) {
 			rmonk.left = true;
+			rmonk.facing = 3;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_K) {
 			rmonk.down = true;
+			rmonk.facing = 2;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_L) {
 			rmonk.right = true;
+			rmonk.facing = 1;
 		}
 		repaint();
 	}
@@ -172,17 +180,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_L) {
 			rmonk.right = false;
 		}
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getExtendedKeyCode() == KeyEvent.VK_Z) {
 			obj.addProjectile(bmonk.getProjectile());
 		}
 		if (e.getExtendedKeyCode() == KeyEvent.VK_M) {
 			obj.addProjectile(rmonk.getProjectile());
 		}
+	}
+	
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+//		if (e.getExtendedKeyCode() == KeyEvent.VK_Z) {
+//			obj.addProjectile(bmonk.getProjectile());
+//		}
+//		if (e.getExtendedKeyCode() == KeyEvent.VK_M) {
+//			obj.addProjectile(rmonk.getProjectile());
+//		}
 	}
 
 	@Override
