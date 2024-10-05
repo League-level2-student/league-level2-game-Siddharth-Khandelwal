@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class ObjectManager implements ActionListener{
 	Monkey b;
 	Monkey r;
@@ -12,6 +14,7 @@ public class ObjectManager implements ActionListener{
 		b = bl;
 		r = re;
 	}
+	
 	void addProjectile(Projectile p) {
 		projectiles.add(p);
 	}
@@ -27,6 +30,27 @@ public class ObjectManager implements ActionListener{
 		// TODO Auto-generated method stub
 
 	}
+
+	private void purgeObjects() {
+		for (int j = 0; j < projectiles.size(); j++) {
+			if(projectiles.get(j).isActive == false) {
+				projectiles.remove(j);
+				j--;
+			}
+		}
+		
+		
+		
+		
+	if(r.isActive == false) {
+		JOptionPane.showMessageDialog(null, "Blue won!");
+		
+	}
+	if(b.isActive == false) {
+		JOptionPane.showMessageDialog(null, "Red won!");
+		
+	}
+	}
 	public void update() {
 		// TODO Auto-generated method stub
 		b.update();
@@ -35,17 +59,32 @@ public class ObjectManager implements ActionListener{
 			p.update();
 		}
 		checkCollison();
+		purgeObjects();
 	}
 	void checkCollison() {
 		for(Projectile p : projectiles) {
 			if(p.whichmonkey == 1) {
 				if(p.collisionBox.intersects(r.collisionBox)) {
 					System.out.println("red done been hit");
+					p.isActive = false;
+					r.timesHit++;
+					if(r.timesHit == 5) {      
+						GamePanel.winningmonk = "Blue";
+						r.isActive = false;
+					}
+					
 				}
 			}
 			if(p.whichmonkey == 2) {
 				if(p.collisionBox.intersects(b.collisionBox)) {
 					System.out.println("blue done been hit");
+					p.isActive = false;
+					b.timesHit++;
+					if(b.timesHit == 5) {
+						GamePanel.winningmonk = "Red";
+						b.isActive = false;
+					}
+					
 				}
 			}
 		}

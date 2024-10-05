@@ -15,12 +15,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME = 1;
 	final int END = 2;
 	int currentState = MENU;
-	Monkey bmonk = new Monkey(0, 225, 50, 50, 1, Color.blue, 1);
-	Monkey rmonk = new Monkey(750, 225, 50, 50, 2, Color.red, 3);
+	Monkey bmonk = new Monkey(0, 225, 50, 50, 1, Color.blue, 1, 0);
+	Monkey rmonk = new Monkey(750, 225, 50, 50, 2, Color.red, 3, 0);
 	ObjectManager obj = new ObjectManager(bmonk, rmonk);
 	Font baseFont = new Font("Arial", Font.PLAIN, 24);
 	Font titleFont = new Font("Arial", Font.PLAIN, 48);
 	Timer frameDraw;
+	static String winningmonk;
 
 	public GamePanel() {
 		frameDraw = new Timer(1000 / 60, this);
@@ -67,7 +68,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.white);
 		g.drawString("  GAME OVER", 0, 100);
 		g.setFont(baseFont);
-		g.drawString("  Winner: " + "Monkey Won the Game!", 0, 300);
+		g.drawString("  Winner: " +winningmonk+ " Monkey Won the Game!", 0, 300);
 		g.drawString(" -- Press ENTER to go to Home Screen", 0, 400);
 	}
 
@@ -87,20 +88,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END) {
+				bmonk = new Monkey(0, 225, 50, 50, 1, Color.blue, 1, 0);
+				rmonk = new Monkey(750, 225, 50, 50, 2, Color.red, 3, 0);
+				obj = new ObjectManager(bmonk, rmonk);
 				currentState = MENU;
 			} else {
 				currentState++;
 			}
 
-		}/*public static int showOptionDialog(Component parentComponent,
-                                   Object message,
-                                   String title,
-                                   int optionType,
-                                   int messageType,
-                                   Icon icon,
-                                   Object[] options,
-                                   Object initialValue)
-                            throws HeadlessException*/
+		}
 		if(e.getKeyCode() == KeyEvent.VK_SPACE && currentState == MENU) {
 			String[] options =  {"Blue", "Red", "Instructions"};	
 			int pressed = JOptionPane.showOptionDialog ( null, "Pick Red or Blue for Controls. Click Instructions for Instructions", "Instructions and Controls", 

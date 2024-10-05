@@ -7,9 +7,10 @@ boolean down = false;
 boolean right = false;
 boolean left = false;
 int facing;
+int timesHit = 0;
 	Color c;
 	int whichmonkey;
-	public Monkey(int x, int y, int width, int height, int whichmonkey, Color c, int facing) {
+	public Monkey(int x, int y, int width, int height, int whichmonkey, Color c, int facing, int timeHit) {
 		super(x, y, width, height);
 		speed = 5;
 		this.whichmonkey = whichmonkey;
@@ -18,7 +19,7 @@ int facing;
 	}
 	public Projectile getProjectile() {
 
-			return new Projectile(x + width/2 -5, y + height/2 -5, 10, 10, 10, facing, whichmonkey);
+			return new Projectile(x + width/2 -5, y + height/2 -5, 20, 20, 10, facing, whichmonkey);
 		
 		
 		
