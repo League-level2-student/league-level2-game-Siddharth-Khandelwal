@@ -5,7 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -15,14 +19,25 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME = 1;
 	final int END = 2;
 	int currentState = MENU;
-	Monkey bmonk = new Monkey(0, 225, 50, 50, 1, Color.blue, 1, 0);
-	Monkey rmonk = new Monkey(750, 225, 50, 50, 2, Color.red, 3, 0);
+	Monkey bmonk = new Monkey(0, 210, 80, 80, 1, Color.blue, 1, 0);
+	Monkey rmonk = new Monkey(720, 210, 80, 80, 2, Color.red, 3, 0);
 	ObjectManager obj = new ObjectManager(bmonk, rmonk);
 	Font baseFont = new Font("Arial", Font.PLAIN, 24);
 	Font titleFont = new Font("Arial", Font.PLAIN, 48);
 	Timer frameDraw;
 	static String winningmonk;
-
+static BufferedImage img; 
+	
+	static {
+		
+		try {
+			img = ImageIO.read(new File("src/jungle.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	public GamePanel() {
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
@@ -56,8 +71,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawGameState(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(0, 0, MonkeyMassacre.WIDTH, MonkeyMassacre.HEIGHT);
+		g.drawImage(img,0, 0,MonkeyMassacre.WIDTH, MonkeyMassacre.HEIGHT, null);
 		obj.draw(g);
 	}
 
@@ -88,8 +102,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END) {
-				bmonk = new Monkey(0, 225, 50, 50, 1, Color.blue, 1, 0);
-				rmonk = new Monkey(750, 225, 50, 50, 2, Color.red, 3, 0);
+				bmonk = new Monkey(0, 210, 75, 75, 1, Color.blue, 1, 0);
+				rmonk = new Monkey(720, 210, 75, 75, 2, Color.red, 3, 0);
 				obj = new ObjectManager(bmonk, rmonk);
 				currentState = MENU;
 			} else {
@@ -198,6 +212,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		repaint();
 		// TODO Auto-generated method stub
 		if (currentState == MENU) {
 			updateMenuState();
@@ -208,7 +223,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 
-		repaint();
+	
 	}
 
 }

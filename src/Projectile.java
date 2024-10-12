@@ -66,10 +66,10 @@ public class Projectile extends GameObject {
 	public void draw(Graphics g) {
 
 		g.setColor(Color.BLUE);
-		g.drawImage(img,x, y, width, height, null);
+		g.drawImage(img,x , y, width, height, null);
 		
-		//g.setColor(Color.yellow);
-		//g.drawRect(collisionBox.x, collisionBox.y, collisionBox.width, collisionBox.height);
+		g.setColor(Color.yellow);
+		g.drawRect(collisionBox.x, collisionBox.y, collisionBox.width, collisionBox.height);
 	}
 	
 }

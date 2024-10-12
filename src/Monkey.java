@@ -1,5 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Monkey extends GameObject{
 boolean up = false;
@@ -10,8 +15,21 @@ int facing;
 int timesHit = 0;
 	Color c;
 	int whichmonkey;
+static BufferedImage img; 
+	
+	static {
+		
+		try {
+			img = ImageIO.read(new File("src/transparentmonkey.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	public Monkey(int x, int y, int width, int height, int whichmonkey, Color c, int facing, int timeHit) {
 		super(x, y, width, height);
+		collisionBox.setBounds(x + width/10, y+height/10, width-width/5, height-height/5);
 		speed = 5;
 		this.whichmonkey = whichmonkey;
 		this.c = c;
@@ -19,17 +37,18 @@ int timesHit = 0;
 	}
 	public Projectile getProjectile() {
 
-			return new Projectile(x + width/2 -5, y + height/2 -5, 20, 20, 10, facing, whichmonkey);
+			return new Projectile(x + width/2 -20, y + height/2 -20, 25, 35, 10, facing, whichmonkey);
 		
 		
 		
 	}
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
+		//g.setColor(c);
+		//g.fillRect(x, y, width, height);
 		g.setColor(c);
-		g.fillRect(x, y, width, height);
-		g.setColor(Color.yellow);
-		g.drawRect(collisionBox.x, collisionBox.y, collisionBox.width, collisionBox.height);
+		g.drawImage(img,x, y, width, height, null);
+		g.drawRect(collisionBox.x , collisionBox.y , collisionBox.width  , collisionBox.height );
 	}
 
 public void update() {
@@ -49,6 +68,6 @@ public void update() {
 		x += speed;
 		
 	}
-	super.update();
+	collisionBox.setBounds(x + width/10, y+height/10, width-width/5, height-height/5);
 }
 }

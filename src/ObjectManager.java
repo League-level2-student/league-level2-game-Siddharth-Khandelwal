@@ -71,6 +71,8 @@ public class ObjectManager implements ActionListener{
 					if(r.timesHit == 5) {      
 						GamePanel.winningmonk = "Blue";
 						r.isActive = false;
+						r.timesHit = 0;
+						b.timesHit = 0;
 					}
 					
 				}
@@ -83,6 +85,8 @@ public class ObjectManager implements ActionListener{
 					if(b.timesHit == 5) {
 						GamePanel.winningmonk = "Red";
 						b.isActive = false;
+						b.timesHit = 0;
+						r.timesHit = 0;
 					}
 					
 				}
