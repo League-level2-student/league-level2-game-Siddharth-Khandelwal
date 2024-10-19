@@ -15,12 +15,13 @@ int facing;
 int timesHit = 0;
 	Color c;
 	int whichmonkey;
-static BufferedImage img; 
-	
+static BufferedImage imgb; 
+	static BufferedImage imgr;
 	static {
 		
 		try {
-			img = ImageIO.read(new File("src/transparentmonkey.png"));
+			imgb = ImageIO.read(new File("src/bluemonkey.png"));
+			imgr = ImageIO.read(new File("src/redmonkey.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,8 +48,13 @@ static BufferedImage img;
 		//g.setColor(c);
 		//g.fillRect(x, y, width, height);
 		g.setColor(c);
-		g.drawImage(img,x, y, width, height, null);
-		g.drawRect(collisionBox.x , collisionBox.y , collisionBox.width  , collisionBox.height );
+		if(whichmonkey == 1) {
+			g.drawImage(imgb,x, y, width, height, null);
+		}
+		else {
+			g.drawImage(imgr,x, y, width, height, null);	
+		}
+		//g.drawRect(collisionBox.x , collisionBox.y , collisionBox.width  , collisionBox.height );
 	}
 
 public void update() {
