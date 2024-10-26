@@ -22,8 +22,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Monkey bmonk = new Monkey(0, 210, 80, 80, 1, Color.blue, 1, 0);
 	Monkey rmonk = new Monkey(720, 210, 80, 80, 2, Color.red, 3, 0);
 	ObjectManager obj = new ObjectManager(bmonk, rmonk);
-	Font baseFont = new Font("Arial", Font.PLAIN, 24);
-	Font titleFont = new Font("Arial", Font.PLAIN, 48);
+	Font baseFont = new Font("Times New Roman", Font.PLAIN, 24);
+	Font titleFont = new Font("Calibri", Font.PLAIN, 48);
+	Font ingfont = new Font("Calibri", Font.PLAIN, 32);
+	int bCooldown = 0;
+	int rCooldown = 0;
 	Timer frameDraw;
 	static String winningmonk;
 static BufferedImage img; 
@@ -72,6 +75,11 @@ static BufferedImage img;
 
 	void drawGameState(Graphics g) {
 		g.drawImage(img,0, 0,MonkeyMassacre.WIDTH, MonkeyMassacre.HEIGHT, null);
+		g.setFont(ingfont);
+		g.setColor(Color.blue);
+		g.drawString("Health: "+obj.c+"", 20, 100);
+		g.setColor(Color.red);
+		g.drawString("Health: "+obj.j+"", 600, 100);
 		obj.draw(g);
 	}
 
@@ -123,7 +131,7 @@ static BufferedImage img;
 			}else if (pressed == 1) {
 				JOptionPane.showMessageDialog(null, "To move red monkey, use I to move up, J to move left, K to move down, and L to move right. To throw a banana press M.");
 			}else if(pressed == 2) {
-				JOptionPane.showMessageDialog(null, "First monkey to hit the other monkey with a banana wins!");
+				JOptionPane.showMessageDialog(null, "First monkey to hit the other monkey with a banana 5 times wins! You shoot in the direction you most recently moved in.");
 			}
 		}
 
@@ -191,10 +199,21 @@ static BufferedImage img;
 			rmonk.right = false;
 		}
 		if (e.getExtendedKeyCode() == KeyEvent.VK_Z) {
-			obj.addProjectile(bmonk.getProjectile());
+			
+			
+			if(bCooldown == 0){
+				obj.addProjectile(bmonk.getProjectile());
+				bCooldown = 60;
+			}
+			
 		}
 		if (e.getExtendedKeyCode() == KeyEvent.VK_M) {
-			obj.addProjectile(rmonk.getProjectile());
+		
+			if(rCooldown == 0) {
+				obj.addProjectile(rmonk.getProjectile());
+				rCooldown = 60;
+			}
+			
 		}
 	}
 	
@@ -222,7 +241,12 @@ static BufferedImage img;
 			updateEndState();
 
 		}
-
+		if(bCooldown != 0) {
+			bCooldown--;
+		}
+		if(rCooldown !=0) {
+			rCooldown--;
+		}
 	
 	}
 

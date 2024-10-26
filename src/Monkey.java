@@ -37,7 +37,7 @@ static BufferedImage imgb;
 		this.facing = facing;
 	}
 	public Projectile getProjectile() {
-
+		
 			return new Projectile(x + width/2 -20, y + height/2 -20, 25, 35, 10, facing, whichmonkey);
 		
 		

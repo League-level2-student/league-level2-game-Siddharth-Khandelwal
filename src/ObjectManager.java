@@ -9,10 +9,13 @@ public class ObjectManager implements ActionListener{
 	Monkey b;
 	Monkey r;
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-
+	int j;
+	int c;
 	public ObjectManager(Monkey bl, Monkey re) {
 		b = bl;
-		r = re;
+		r = re; 
+		j = 100;
+		c = 100;
 	}
 	
 	void addProjectile(Projectile p) {
@@ -68,6 +71,7 @@ public class ObjectManager implements ActionListener{
 					System.out.println("red done been hit");
 					p.isActive = false;
 					r.timesHit++;
+					j-=20;
 					if(r.timesHit == 5) {      
 						GamePanel.winningmonk = "Blue";
 						r.isActive = false;
@@ -82,6 +86,7 @@ public class ObjectManager implements ActionListener{
 					System.out.println("blue done been hit");
 					p.isActive = false;
 					b.timesHit++;
+					c-=20;
 					if(b.timesHit == 5) {
 						GamePanel.winningmonk = "Red";
 						b.isActive = false;
