@@ -70,7 +70,11 @@ static BufferedImage img;
 		g.drawString("  Monkey Massacre", 0, 100);
 		g.setFont(baseFont);
 		g.drawString(" -- Press SPACE for Instructions", 0, 300);
-		g.drawString(" -- Press ENTER to Start", 0, 400);
+		g.drawString(" -- Press ENTER to Start", 0, 350);
+		g.setColor(Color.blue);
+		g.drawString(" -- Press B for Blue Monkey Controls", 0 , 400);
+		g.setColor(Color.red);
+		g.drawString(" -- Press R for Red Monkey Controls", 0 , 450);
 	}
 
 	void drawGameState(Graphics g) {
@@ -120,53 +124,67 @@ static BufferedImage img;
 
 		}
 		if(e.getKeyCode() == KeyEvent.VK_SPACE && currentState == MENU) {
-			String[] options =  {"Blue", "Red", "Instructions"};	
-			int pressed = JOptionPane.showOptionDialog ( null, "Pick Red or Blue for Controls. Click Instructions for Instructions", "Instructions and Controls", 
-					JOptionPane.OK_OPTION,
-					JOptionPane.PLAIN_MESSAGE, null, options, null )  ;  
-
-
-			if(pressed == 0) {
-				JOptionPane.showMessageDialog(null, "To move blue monkey, use W to move up, A to move left, S to move down, and D to move right. To throw a banana press Z.");
-			}else if (pressed == 1) {
-				JOptionPane.showMessageDialog(null, "To move red monkey, use I to move up, J to move left, K to move down, and L to move right. To throw a banana press M.");
-			}else if(pressed == 2) {
-				JOptionPane.showMessageDialog(null, "First monkey to hit the other monkey with a banana 5 times wins! You shoot in the direction you most recently moved in.");
-			}
+			//String[] options =  {"Blue", "Red", "Instructions"};	
+			//int pressed = JOptionPane.showOptionDialog ( null, "Pick Red or Blue for Controls. Click Instructions for Instructions", "Instructions and Controls", 
+			//		JOptionPane.OK_OPTION,
+			//		JOptionPane.PLAIN_MESSAGE, null, options, null )  ;  
+JOptionPane.showMessageDialog(null, "First monkey to hit the other monkey with a banana 5 times wins! You shoot in the direction you most recently moved in.");
 		}
-
+		
+			//if(pressed == 0) {
+			
+			//}else if (pressed == 1) {
+			if(e.getKeyCode() == KeyEvent.VK_R && currentState == MENU) {
+			JOptionPane.showMessageDialog(null, "To move red monkey, use I to move up, J to move left, K to move down, and L to move right. To throw a banana press M.");
+			}
+				//}else if(pressed == 2) {
+			if(e.getKeyCode() == KeyEvent.VK_B && currentState == MENU) {
+				JOptionPane.showMessageDialog(null, "To move blue monkey, use W to move up, A to move left, S to move down, and D to move right. To throw a banana press Z.");
+				
+			}
+		//}
+		
 		if (e.getKeyCode() == KeyEvent.VK_W) {
+			bmonk.down = false;
 			bmonk.up = true;
 			bmonk.facing = 0;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_A) {
+			bmonk.right = false;
 			bmonk.left = true;
 			bmonk.facing = 3;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_S) {
 			bmonk.down = true;
+			bmonk.up = false;
 			bmonk.facing = 2;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_D) {
-			bmonk.right = true;
+			bmonk.left = false;
+			bmonk.right = true;	
 			bmonk.facing = 1;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_I) {
+			rmonk.down = false;
 			rmonk.up = true;
 			rmonk.facing = 0;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_J) {
+			rmonk.right = false;
 			rmonk.left = true;
 			rmonk.facing = 3;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_K) {
+			rmonk.up = false;
 			rmonk.down = true;
 			rmonk.facing = 2;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_L) {
+			rmonk.left = false;
 			rmonk.right = true;
 			rmonk.facing = 1;
 		}
+		System.out.println("" + rmonk.facing + ", " + bmonk.facing);
 		repaint();
 	}
 
@@ -198,7 +216,7 @@ static BufferedImage img;
 		if (e.getKeyCode() == KeyEvent.VK_L) {
 			rmonk.right = false;
 		}
-		if (e.getExtendedKeyCode() == KeyEvent.VK_Z) {
+		if (e.getKeyCode() == KeyEvent.VK_Z) {
 			
 			
 			if(bCooldown == 0){
@@ -207,7 +225,7 @@ static BufferedImage img;
 			}
 			
 		}
-		if (e.getExtendedKeyCode() == KeyEvent.VK_M) {
+		if (e.getKeyCode() == KeyEvent.VK_M) {
 		
 			if(rCooldown == 0) {
 				obj.addProjectile(rmonk.getProjectile());
