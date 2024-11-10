@@ -7,10 +7,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Monkey extends GameObject{
-boolean up = false;
-boolean down = false;
-boolean right = false;
-boolean left = false;
+volatile boolean up = false;
+volatile boolean down = false;
+volatile boolean right = false;
+volatile boolean left = false;
 int facing;
 int timesHit = 0;
 	Color c;

@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ObjectManager obj = new ObjectManager(bmonk, rmonk);
 	Font baseFont = new Font("Times New Roman", Font.PLAIN, 24);
 	Font titleFont = new Font("Calibri", Font.PLAIN, 48);
-	Font ingfont = new Font("Calibri", Font.PLAIN, 32);
+	Font ingfont = new Font("Calibri", Font.BOLD, 32);
 	int bCooldown = 0;
 	int rCooldown = 0;
 	Timer frameDraw;
@@ -71,18 +71,23 @@ static BufferedImage img;
 		g.setFont(baseFont);
 		g.drawString(" -- Press SPACE for Instructions", 0, 300);
 		g.drawString(" -- Press ENTER to Start", 0, 350);
-		g.setColor(Color.blue);
+		g.setColor(new Color(89, 158, 226));
 		g.drawString(" -- Press B for Blue Monkey Controls", 0 , 400);
-		g.setColor(Color.red);
+		g.setColor(new Color(222, 36, 36));
 		g.drawString(" -- Press R for Red Monkey Controls", 0 , 450);
 	}
 
 	void drawGameState(Graphics g) {
 		g.drawImage(img,0, 0,MonkeyMassacre.WIDTH, MonkeyMassacre.HEIGHT, null);
 		g.setFont(ingfont);
-		g.setColor(Color.blue);
+		
+		g.setColor(new Color(255,255,255,150));
+		g.fillRect(20, 70, 190, 35);
+		g.fillRect(600, 70, 190, 35);
+		g.setColor(new Color(89, 158, 226));
+		
 		g.drawString("Health: "+obj.c+"", 20, 100);
-		g.setColor(Color.red);
+		g.setColor(new Color(222, 36, 36));
 		g.drawString("Health: "+obj.j+"", 600, 100);
 		obj.draw(g);
 	}
